@@ -26,14 +26,8 @@ export function activate(context: ExtensionContext) {
 		)[0];
 		decorate(openEditor);
 	});
-
-	workspace.onDidOpenTextDocument(document => {
-		const openEditor = window.visibleTextEditors.filter(
-			editor => editor.document.uri === document.uri
-		)[0];
-		decorate(openEditor);
-	});
-
+	
+	window.onDidChangeVisibleTextEditors(editors => editors.forEach(decorate));
 	window.visibleTextEditors.forEach(e => decorate(e));
 }
 
